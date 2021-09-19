@@ -2,9 +2,34 @@
 // Ao clicar no botão Entrar, utilize a função createUser da userAPI para salvar o nome digitado. A função createUser espera receber como argumento um objeto com as informações da pessoa
 
 import React, { Component } from 'react';
+import { createUser } from '../services/userAPI';
 
 class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      userName: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  registerUser = () => {
+    const { userName } = this.state;
+    createUser({ name: userName }); // falhando
+  }
+
   render() {
+    const { userName } = this.state;
+    const MIN_LENGTH = 3;
     return (
       <>
         <form>
@@ -12,16 +37,17 @@ class Login extends Component {
             User:
             <input
               data-testid="login-name-input"
-              name=""
-              /* value={ name } */
-              /* onChange={ handleChange } */
+              value={ userName }
+              onChange={ this.handleChange }
               type="text"
             />
           </label>
         </form>
         <button
+          disabled={ userName.length > MIN_LENGTH } // falhando
           data-testid="login-submit-button"
           type="submit"
+          onClick={ this.registerUser }
         >
           Entrar
         </button>
