@@ -27,9 +27,8 @@ class Login extends Component {
     event.preventDefault();
     const { name } = this.state;
     this.setState({ loading: true });
-    await createUser({ name }).then(
-      this.setState({ loading: false, redirect: true }),
-    );
+    await createUser({ name });
+    (this.setState({ loading: false, redirect: true }));
   }
 
   render() {

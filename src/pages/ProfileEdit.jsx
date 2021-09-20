@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class PRofileEdit extends Component {
+class ProfileEdit extends Component {
   render() {
     return (
-      <div>PRofileEdit</div>
+      <div data-testid="page-profile-edit">ProfileEdit</div>
     );
   }
 }
 
-export default PRofileEdit;
+export default ProfileEdit;
