@@ -1,57 +1,40 @@
-// O botão para entrar só deve ser habilitado caso o nome digitado tenha 3 ou mais caracteres.
-// Ao clicar no botão Entrar, utilize a função createUser da userAPI para salvar o nome digitado. A função createUser espera receber como argumento um objeto com as informações da pessoa
-
 import React, { Component } from 'react';
 import { createUser } from '../services/userAPI';
+import LoginForm from '../Components/LoginForm';
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      userName: '',
+      name: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.registerUser = this.registerUser.bind(this);
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-
+  handleChange(event) { // broken
     this.setState({
-      [name]: value,
+      name: event.target.value,
     });
   }
 
-  registerUser = () => {
-    const { userName } = this.state;
-    createUser({ name: userName }); // falhando
+  async registerUser(event) {
+    event.preventDefault();
+    const { name } = this.state;
+    await createUser({ name });
   }
 
   render() {
-    const { userName } = this.state;
-    const MIN_LENGTH = 3;
+    const { name } = this.state;
     return (
-      <>
-        <form>
-          <label htmlFor="login-name-input">
-            User:
-            <input
-              data-testid="login-name-input"
-              value={ userName }
-              onChange={ this.handleChange }
-              type="text"
-            />
-          </label>
-        </form>
-        <button
-          disabled={ userName.length > MIN_LENGTH } // falhando
-          data-testid="login-submit-button"
-          type="submit"
-          onClick={ this.registerUser }
-        >
-          Entrar
-        </button>
-      </>
+      <div data-testid="page-login">
+        <LoginForm
+          onSubmit={ this.registerUser }
+          user={ name }
+          onChange={ this.handleChange }
+        />
+      </div>
     );
   }
 }
