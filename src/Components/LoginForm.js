@@ -29,8 +29,8 @@ class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  user: PropTypes.string,
-  onSubmit: PropTypes.func,
+  name: PropTypes.string,
+  handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,
 }.isRequired;
 

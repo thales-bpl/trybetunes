@@ -26,7 +26,7 @@ class Login extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const { name } = this.state;
-    this.setState({ loading: true });
+    this.setState({ loading: true }); // test refat state
     await createUser({ name });
     (this.setState({ loading: false, redirect: true }));
   }
