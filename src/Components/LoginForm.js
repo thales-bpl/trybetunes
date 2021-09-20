@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 
 class LoginForm extends Component {
   render() {
-    const { user, onSubmit, handleChange } = this.props;
+    const { name, handleSubmit, handleChange } = this.props;
     const MIN_LENGTH = 3;
     return (
-      <form onSubmit={ (event) => onSubmit(event) }>
+      <form onSubmit={ (event) => handleSubmit(event) }>
         <label htmlFor="login-name-input">
           User:
           <input
             data-testid="login-name-input"
-            value={ user }
-            onChange={ (event) => handleChange(event) }
+            name={ name }
+            onChange={ handleChange }
             type="text"
           />
         </label>
         <button
-          disabled={ user.length < MIN_LENGTH }
+          disabled={ name.length < MIN_LENGTH }
           data-testid="login-submit-button"
           type="submit"
         >
