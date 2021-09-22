@@ -17,6 +17,7 @@ class Search extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderizer = this.renderizer.bind(this);
   }
 
   handleChange({ target }) {
@@ -40,60 +41,70 @@ class Search extends Component {
       }));
   }
 
-  render() {
-    const { artist, searchedArtist, loading,
-      displaySearchResult, artistData } = this.state;
-    const MIN_LENGTH = 2;
-    if (loading) {
-      return <Loading />;
-    }
-    if (!displaySearchResult) {
+  renderizer() { // crédito: Helena Greco
+    const { artistData, searchedArtist } = this.state;
+    if (artistData.length === 0) {
       return (
-        <>
-          <Header />
-          <div data-testid="page-search">Search</div>
-          <form onSubmit={ this.handleSubmit }>
-            <input
-              data-testid="search-artist-input"
-              type="text"
-              value={ artist }
-              onChange={ this.handleChange }
-            />
-            <button
-              type="submit"
-              data-testid="search-artist-button"
-              disabled={ artist.length < MIN_LENGTH }
-            >
-              Pesquisar
-            </button>
-          </form>
-        </>
+        <div>
+          <p>Nenhum álbum foi encontrado</p>
+        </div>
       );
     }
-
-    if (displaySearchResult) {
-      return (
-        <section>
-          <p>
-            Resultado de álbuns de:
-            {' '}
-            {searchedArtist}
-            {/* bug */}
-          </p>
+    return (
+      <>
+        <p>
+          Resultado de álbuns de:
+          {' '}
+          {searchedArtist}
+        </p>
+        <ul>
           {artistData.map((album) => (
-            <AlbumCard
+            <li
               key={ album.collectionId }
-              id={ album.collectionId }
-              url={ album.artworkUrl100 }
-              albumName={ album.collectionName }
-            />
+            >
+              <AlbumCard
+                collectionId={ album.collectionId }
+                artworkUrl100={ album.artworkUrl100 }
+                collectionName={ album.collectionName }
+              />
+            </li>
           ))}
+        </ul>
+      </>
+    );
+  }
+
+  render() {
+    const { artist, loading,
+      displaySearchResult } = this.state;
+    const MIN_LENGTH = 2;
+
+    return (
+      <>
+        <Header />
+        {loading ? <Loading /> : '' }
+        <div data-testid="page-search">Search</div>
+        <form>
+          <input
+            data-testid="search-artist-input"
+            type="text"
+            value={ artist }
+            onChange={ this.handleChange }
+          />
+          <button
+            type="button"
+            data-testid="search-artist-button"
+            disabled={ artist.length < MIN_LENGTH }
+            onClick={ this.handleSubmit }
+          >
+            Pesquisar
+          </button>
+        </form>
+        <section>
+          { displaySearchResult ? this.renderizer() : '' }
         </section>
-      );
-    }
-    if ({ artistData }.length === 0) { // bug
-      return <p>Nenhum álbum foi encontrado</p>;
-    }
+      </>
+    );
   }
 }
 

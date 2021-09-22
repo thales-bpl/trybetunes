@@ -4,23 +4,23 @@ import { Link } from 'react-router-dom';
 
 class AlbumCard extends Component {
   render() {
-    const { id, url, albumName } = this.props;
+    const { collectionId, artworkUrl100, collectionName } = this.props;
     return (
-      <Link to={ `/album/${id}` }>
-        <section>
-          <img src={ url } alt={ albumName } />
-          <p>{ albumName }</p>
-        </section>
+      <Link
+        data-testid={ `link-to-album-${collectionId}` }
+        to={ `/album/${collectionId}` }
+      >
+        <img src={ artworkUrl100 } alt={ collectionName } />
+        <p>{ collectionName }</p>
       </Link>
     );
   }
 }
 
 AlbumCard.propTypes = {
-  id: PropTypes.string,
-  url: PropTypes.string,
-  albumName: PropTypes.string,
-  key: PropTypes.string,
+  collectionId: PropTypes.number,
+  artworkUrl100: PropTypes.string,
+  collectionName: PropTypes.string,
 }.isRequired;
 
 export default AlbumCard;
