@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../Components/Header';
 import getMusics from '../services/musicsAPI';
 import Loading from '../Components/Loading';
+import MusicCard from '../Components/MusicCard';
 
 class Album extends Component {
   constructor(props) {
@@ -18,28 +19,19 @@ class Album extends Component {
     this.fetchAlbumData();
   }
 
-  fetchAlbumData() {
+  async fetchAlbumData() {
     const { match: { params: { id } } } = this.props;
-    getMusics(id).then((albumData) => this.setState({
+    await getMusics(id).then((albumData) => this.setState({
       loading: false,
       albumData,
     }));
-    console.log(this.state.albumData);
   }
-  /* fetchAlbumData() {
-    const { match: { params: { id } } } = this.props;
-    getMusics(id)
-      .then((albumData) => JSON.stringify(albumData))
-      .then((albumData) => this.setState({
-        loading: false,
-        albumData,
-      }));
-  } */
+
+  /* console.log(getMusics(697650603)) */
 
   render() {
     const { loading, albumData } = this.state;
-    /* const { artistName } = albumData[0]; */
-    if ({ albumData } === 0) {
+    if (!albumData.length) {
       return (
         <p>albumData vazio</p>
       );
@@ -48,7 +40,18 @@ class Album extends Component {
       <section data-testid="page-album">
         <Header />
         { loading ? <Loading /> : '' }
-        <h2>{ albumData.length }</h2>
+        <h2 data-testid="artist-name">
+          { albumData[0].artistName }
+        </h2>
+        <h3 data-testid="album-name">
+          { albumData[0].collectionName }
+        </h3>
+        <aside>
+          <MusicCard
+            trackName={ albumData[1].trackName }
+            previewUrl={ albumData[1].previewUrl }
+          />
+        </aside>
       </section>
     );
   }
