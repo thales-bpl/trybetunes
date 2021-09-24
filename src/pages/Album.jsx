@@ -27,19 +27,21 @@ class Album extends Component {
     }));
   }
 
-  /* console.log(getMusics(697650603)) */
-
   render() {
     const { loading, albumData } = this.state;
-    if (!albumData.length) {
+    if (loading) {
       return (
-        <p>albumData vazio</p>
+        <>
+          <Header />
+          <Loading />
+        </>
       );
     }
     return (
       <section data-testid="page-album">
         <Header />
-        { loading ? <Loading /> : '' }
+        {/* { loading ? <Loading /> : '' } */}
+        <img src={ albumData[0].artworkUrl100 } alt={ albumData[0].collectionName } />
         <h2 data-testid="artist-name">
           { albumData[0].artistName }
         </h2>
@@ -47,10 +49,13 @@ class Album extends Component {
           { albumData[0].collectionName }
         </h3>
         <aside>
-          <MusicCard
-            trackName={ albumData[1].trackName }
-            previewUrl={ albumData[1].previewUrl }
-          />
+          {albumData.slice(1).map((track, index) => (
+            <MusicCard
+              key={ index }
+              trackName={ track.trackName }
+              previewUrl={ track.previewUrl }
+            />
+          ))}
         </aside>
       </section>
     );
