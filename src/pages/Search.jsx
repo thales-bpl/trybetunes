@@ -75,14 +75,13 @@ class Search extends Component {
   }
 
   render() {
-    const { artist, loading,
-      displaySearchResult } = this.state;
+    const { artist, loading, displaySearchResult } = this.state;
     const MIN_LENGTH = 2;
 
     return (
       <>
         <Header />
-        {loading ? <Loading /> : '' }
+        { loading ? <Loading /> : '' }
         <div data-testid="page-search">Search</div>
         <form>
           <input
