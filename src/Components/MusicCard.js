@@ -15,18 +15,14 @@ class MusicCard extends Component {
 
   async handleChange({ target }) {
     const { trackId } = this.props;
-    this.setState = ({ loading: true });
-    console.log(target.checked); // true
-    /* console.log(this.state.favorite); // false */
-    console.log(trackId); // 1059044062
+    this.setState({ loading: true });
     if (target.checked) {
       await addSong(trackId);
-      this.setState({ // broken
+      this.setState({
         loading: false,
         favorite: true,
       });
     }
-    console.log('cheguei');
   }
 
   render() {
@@ -56,6 +52,7 @@ class MusicCard extends Component {
             id={ trackId }
             onChange={ this.handleChange }
             checked={ favorite }
+            value={ trackId }
           />
         </label>
       </div>
