@@ -61,6 +61,7 @@ code {
 
 .div-music-card{
   display: flex;
-  padding: 8px;
+  padding: 6px;
   align-items: center;
+  min-height: 50px;
 }
