@@ -11,24 +11,12 @@ class Album extends Component {
     this.state = {
       albumData: [],
       loading: true,
-      /* favoriteTracks: [], */
     };
     this.fetchAlbumData = this.fetchAlbumData.bind(this);
-    /* this.fetchFavorites = this.fetchFavorites.bind(this); */
   }
 
   componentDidMount() {
     this.fetchAlbumData();
-  /*   this.fetchFavorites();
-  }
-
-  async fetchFavorites() {
-    await getFavoriteSongs()
-      .then((favoriteTracks) => {
-        this.setState({
-          favoriteTracks,
-        });
-      }); */
   }
 
   async fetchAlbumData() {

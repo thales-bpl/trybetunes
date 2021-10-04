@@ -8,7 +8,6 @@ class MusicCard extends Component {
     super(props);
     this.state = {
       loading: false,
-      /* favorite: false, // Não preciso da favorite como state aqui */
       favoriteTracks: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -19,24 +18,19 @@ class MusicCard extends Component {
     this.fetchFavoriteSongs();
   }
 
-  async handleChange({ target }) {
+  handleChange({ target }) {
     const { track } = this.props;
     this.setState({ loading: true });
     if (target.checked) {
-      await addSong(track);
-      this.setState({
-        loading: false,
-        /* favorite: true, // kill */
+      addSong(track).then(() => {
+        this.setState({ loading: false });
       });
-      this.fetchFavoriteSongs();
     } else {
-      await removeSong(track);
-      this.setState({
-        loading: false,
-        /* favorite: false, // kill */
+      removeSong(track).then(() => {
+        this.setState({ loading: false });
       });
-      this.fetchFavoriteSongs();
     }
+    this.fetchFavoriteSongs(); // ajuda com essa função: Theo Lima
   }
 
   fetchFavoriteSongs() {
@@ -47,12 +41,9 @@ class MusicCard extends Component {
     });
   }
 
-  // resgatar fav songs pela getFavoriteSongs() e verificar se alguma trackId === favsongs
-  // onde armazenar o array de favs? Acho que state..
-
   render() {
     const { track: { trackId, trackName, previewUrl } } = this.props;
-    const { loading, favoriteTracks /* , favorite */ } = this.state;
+    const { loading, favoriteTracks } = this.state;
     if (loading) {
       return (
         <div className="div-music-card">
@@ -78,7 +69,6 @@ class MusicCard extends Component {
             data-testid={ `checkbox-music-${trackId}` }
             id={ trackId }
             onChange={ this.handleChange }
-            /* checked={ favorite } // passar uma lógica com output booleano */
             checked={ favoriteTracks.some((song) => song.trackId === trackId) }
             value={ trackId }
           />
