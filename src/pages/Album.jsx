@@ -38,25 +38,33 @@ class Album extends Component {
       );
     }
     return (
-      <section data-testid="page-album">
+      <>
         <Header />
-        {/* { loading ? <Loading /> : '' } */}
-        <img src={ albumData[0].artworkUrl100 } alt={ albumData[0].collectionName } />
-        <h2 data-testid="artist-name">
-          { albumData[0].artistName }
-        </h2>
-        <h3 data-testid="album-name">
-          { albumData[0].collectionName }
-        </h3>
-        <aside>
-          {albumData.slice(1).map((track, index) => (
-            <MusicCard
-              key={ index }
-              track={ track }
+        <section className="album-page-section" data-testid="page-album">
+          {/* { loading ? <Loading /> : '' } */}
+          <section className="album-info-section">
+            <img
+              className="album-img"
+              src={ albumData[0].artworkUrl100 }
+              alt={ albumData[0].collectionName }
             />
-          ))}
-        </aside>
-      </section>
+            <h2 data-testid="album-name">
+              { albumData[0].collectionName }
+            </h2>
+            <h3 data-testid="artist-name">
+              { albumData[0].artistName }
+            </h3>
+          </section>
+          <aside className="music-list-aside">
+            {albumData.slice(1).map((track, index) => (
+              <MusicCard
+                key={ index }
+                track={ track }
+              />
+            ))}
+          </aside>
+        </section>
+      </>
     );
   }
 }

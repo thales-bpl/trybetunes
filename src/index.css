@@ -17,3 +17,50 @@ code {
   display: flex;
   justify-content: center;
 }
+
+.header {
+  background-color: rgb(4, 99, 4);
+  height: 40px;
+  color: rgb(200, 255, 0);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 5px;
+}
+
+.nav-link {
+  background-color: rgb(170, 103, 233);
+}
+
+.album-page-section {
+  display: flex;
+}
+
+.album-info-section {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.music-list-aside {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.album-img {
+  height: auto; 
+  width: auto; 
+  max-width: 200px; 
+  max-height: 200px;
+}
+
+.div-music-card{
+  display: flex;
+  padding: 8px;
+  align-items: center;
+}

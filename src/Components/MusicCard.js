@@ -40,8 +40,8 @@ class MusicCard extends Component {
       );
     }
     return (
-      <div>
-        <span>
+      <div className="div-music-card">
+        <span style={ { padding: '10px' } }>
           { trackName }
         </span>
         <audio data-testid="audio-component" src={ previewUrl } controls>

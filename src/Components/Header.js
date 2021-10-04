@@ -26,14 +26,24 @@ class Header extends Component {
       return <Loading />;
     }
     return (
-      <header data-testid="header-component">
-        <p data-testid="header-user-name">
-          { name }
-        </p>
-        <Link to="/search" data-testid="link-to-search">Search</Link>
-        <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
-        <Link to="/profile" data-testid="link-to-profile">Profile</Link>
-      </header>
+      <>
+        <header data-testid="header-component" className="header">
+          <p data-testid="header-user-name">
+            { name }
+          </p>
+        </header>
+        <nav className="header-nav">
+          <Link to="/search" data-testid="link-to-search">
+            <button className="nav-link" type="button">Search</button>
+          </Link>
+          <Link to="/favorites" data-testid="link-to-favorites">
+            <button className="nav-link" type="button">Favorites</button>
+          </Link>
+          <Link to="/profile" data-testid="link-to-profile">
+            <button className="nav-link" type="button">Profile</button>
+          </Link>
+        </nav>
+      </>
     );
   }
 }
