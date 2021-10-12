@@ -4,6 +4,9 @@ import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from '../Components/Loading';
 import MusicCard from '../Components/MusicCard';
 
+// Broken, mas funciona no browser:
+// Será validado se a lista de músicas favoritas é atualizada ao remover uma música da lista.
+
 class Favorites extends Component {
   constructor(props) {
     super(props);

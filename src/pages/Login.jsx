@@ -9,6 +9,9 @@ class Login extends Component {
     super(props);
     this.state = {
       name: '',
+      /* email: '',
+      description: '',
+      profilePic: '', */
       loading: false,
       redirect: false,
     };
@@ -20,19 +23,22 @@ class Login extends Component {
   handleChange(event) {
     this.setState({
       name: event.target.value,
+      /* email: event.target.value,
+      description: event.target.value,
+      profilePic: event.target.value, */
     });
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    const { name } = this.state;
+    const { name/* , email, description, profilePic */ } = this.state;
     this.setState({ loading: true }); // test refat state
-    await createUser({ name });
+    await createUser({ name/* , email, description, profilePic */ });
     (this.setState({ loading: false, redirect: true }));
   }
 
   render() {
-    const { name, loading, redirect } = this.state;
+    const { name, /* email, description, profilePic, */ loading, redirect } = this.state;
     if (loading) {
       return <Loading />;
     }
@@ -40,6 +46,9 @@ class Login extends Component {
       <div data-testid="page-login">
         <LoginForm
           name={ name }
+          /* email={ email }
+          description={ description }
+          profilePic={ profilePic } */
           handleSubmit={ this.handleSubmit }
           handleChange={ this.handleChange }
         />
