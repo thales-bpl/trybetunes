@@ -12,13 +12,14 @@ class MusicCard extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.fetchFavoriteSongs = this.fetchFavoriteSongs.bind(this);
+    this.renderFavoriteSong = this.renderFavoriteSong.bind(this);
   }
 
   componentDidMount() {
     this.fetchFavoriteSongs();
   }
 
-  handleChange({ target }) {
+  handleChange({ target }) { // ajuda com essa função: Theo Lima
     const { track } = this.props;
     this.setState({ loading: true });
     if (target.checked) {
@@ -30,7 +31,7 @@ class MusicCard extends Component {
         this.setState({ loading: false });
       });
     }
-    this.fetchFavoriteSongs(); // ajuda com essa função: Theo Lima
+    this.fetchFavoriteSongs();
   }
 
   fetchFavoriteSongs() {
@@ -41,18 +42,27 @@ class MusicCard extends Component {
     });
   }
 
+  renderFavoriteSong(trackId, favoriteTracks) {
+    return (
+      <label htmlFor={ trackId }>
+        Favorita
+        <input
+          type="checkbox"
+          data-testid={ `checkbox-music-${trackId}` }
+          id={ trackId }
+          onChange={ this.handleChange }
+          checked={ favoriteTracks.some((song) => song.trackId === trackId) }
+          value={ trackId }
+        />
+      </label>
+    );
+  }
+
   render() {
     const { track: { trackId, trackName, previewUrl } } = this.props;
     const { loading, favoriteTracks } = this.state;
-    if (loading) {
-      return (
-        <div className="div-music-card">
-          <Loading />
-        </div>
-      );
-    }
     return (
-      <div className="div-music-card">
+      <section className="div-music-card">
         <span style={ { padding: '10px' } }>
           { trackName }
         </span>
@@ -62,18 +72,8 @@ class MusicCard extends Component {
           <code>audio</code>
           .
         </audio>
-        <label htmlFor={ trackId }>
-          Favorita
-          <input
-            type="checkbox"
-            data-testid={ `checkbox-music-${trackId}` }
-            id={ trackId }
-            onChange={ this.handleChange }
-            checked={ favoriteTracks.some((song) => song.trackId === trackId) }
-            value={ trackId }
-          />
-        </label>
-      </div>
+        {loading ? <Loading /> : this.renderFavoriteSong(trackId, favoriteTracks) }
+      </section>
     );
   }
 }

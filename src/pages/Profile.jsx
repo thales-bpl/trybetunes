@@ -12,27 +12,27 @@ class Profile extends Component {
       name: '',
       email: '',
       description: '',
-      profilePic: '',
+      image: '',
     };
     this.displayUserProfile = this.displayUserProfile.bind(this);
   }
 
   componentDidMount() {
     getUser()
-      .then(({ name, email, description, profilePic }) => this.setState({
+      .then(({ name, email, description, image }) => this.setState({
         loading: false,
         name,
         email,
         description,
-        profilePic,
+        image,
       }));
   }
 
   displayUserProfile() {
-    const { name, email, description, profilePic } = this.state;
+    const { name, email, description, image } = this.state;
     return (
-      <>
-        <img data-testid="profile-image" src={ profilePic } alt={ name } />
+      <section>
+        <img data-testid="profile-image" src={ image } alt={ name } />
         <Link to="/profile/edit">Editar perfil</Link>
         <span>
           <p>Nome:</p>
@@ -46,7 +46,7 @@ class Profile extends Component {
           <p>Descrição:</p>
           <p>{ description }</p>
         </span>
-      </>
+      </section>
     );
   }
 
