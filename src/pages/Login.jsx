@@ -15,7 +15,6 @@ class Login extends Component {
       loading: false,
       redirect: false,
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
