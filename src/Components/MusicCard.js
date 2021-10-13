@@ -20,7 +20,7 @@ class MusicCard extends Component {
   }
 
   handleChange({ target }) { // ajuda com essa função: Theo Lima
-    const { track } = this.props;
+    const { track, onChange } = this.props;
     this.setState({ loading: true });
     if (target.checked) {
       addSong(track).then(() => {
@@ -32,6 +32,9 @@ class MusicCard extends Component {
       });
     }
     this.fetchFavoriteSongs();
+    if (onChange) {
+      onChange();
+    }
   }
 
   fetchFavoriteSongs() {

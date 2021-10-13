@@ -42,6 +42,7 @@ class Favorites extends Component {
             <MusicCard
               key={ index }
               track={ track }
+              onChange={ this.updateFavoriteSongs }
             />
           ))}
         </div>
